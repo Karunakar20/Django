@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive Blog Page</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+
+        h1 {
+            color: #333;
+            font-size: 3em;
+            margin-bottom: 10px;
+        }
+
+        p {
+            color: #555;
+            line-height: 1.6;
+        }
+    </style>
+   
+</head>
+<body>
+
+    <h1>Search Results</h1>
+    <form method="get" action="{% url 'search' %}">
+        <input type="text" name="query" placeholder="Search..." value="{{ query }}">
+        <button type="submit">Search</button>
+    </form>
+
+    {% if query %}
+        <h2>Results for "{{ query }}":</h2>
+        <ul>
+            {% if results %}
+                {% for post in results %}
+                    <li>
+                        <a href="{% url 'view' pk=post.pk %}">{{ post.title }}</a>
+                    </li>
+                {% endfor %}
+            {% else %}
+                <li>No results found.</li>
+            {% endif %}
+        </ul>
+    {% endif %}
+
+</body>
+</html>

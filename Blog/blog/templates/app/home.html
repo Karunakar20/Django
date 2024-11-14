@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Responsive Blog Page</title>
+        <style>
+            body {
+              font-family: sans-serif;
+              margin: 0;
+              padding: 20px;
+            }
+        
+            h1 {
+              font-size: 2em;
+              margin-bottom: 10px;
+            }
+        
+            h2 {
+              font-size: 1.5em;
+              margin-top: 20px;
+              margin-bottom: 10px;
+            }
+        
+            ul {
+              list-style: none;
+              padding: 0;
+            }
+        
+            li {
+              margin-bottom: 5px;
+            }
+        
+            a {
+              color: #007bff;
+              text-decoration: none;
+            }
+        
+            a:hover {
+              text-decoration: underline;
+            }
+        
+            .container {
+              display: flex;
+            }
+        
+            .sidebar {
+              width: 200px;
+              margin-right: 20px;
+            }
+        
+            .content {
+              flex: 1;
+            }
+          </style>
+    </head>
+<body>
+    
+    <div class="container">
+        <aside class="sidebar">
+            <h2>Categories</h2>
+            <ul>
+               
+                <li><a href="{% url 'tech' 'TC' %}">Technology</a></li>
+                <li><a href="{% url 'health' 'HE' %}">Health</a></li>
+                <li><a href="{% url 'travel' 'TR' %}">Travel</a></li>
+                <li><a href="{% url 'food' 'FO' %}">Food</a></li>
+                <li><a href="{% url 'lifestyle' 'LI' %}">Lifestyle</a></li>
+            </ul>
+        </aside>
+        <main class="content">
+
+            <form method="get" action="{% url 'search' %}">
+              <input type="text" name="query" placeholder="Search..." value="{{ request.GET.query }}">
+              <button type="submit">Search</button>
+            </form>
+            <br>
+            <a href='{% url "add" %}'>Add post</a>
+
+            <div class="col-sm-3">
+                <div class="list-group">
+                    {% for datas in data %}
+                        <h2>{{datas.title}}</h2>
+                        <p>{{datas.content}}</p>
+                        <a href="{% url 'view' datas.pk %}">View</a>
+                        <a href="{% url 'edit' datas.pk %}">Edit</a>
+                        <a href="{% url 'delete' datas.pk %}">Delete</a>
+                    {% endfor %}
+                </div>
+           </div>
+
+        </main>
+    </div>
+</body>
+</html>
